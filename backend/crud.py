@@ -87,10 +87,12 @@ def get_chat_users(db: Session, user_id: int):
         
         if other_user_id not in user_ids:
             user_ids.add(other_user_id)
-            result.append(other_user_id)
+            # Diğer kullanıcının bilgilerini alalım
+            other_user = db.query(models.User).filter(models.User.id == other_user_id).first()
+            if other_user:
+                result.append({"username": other_user.username, "id": other_user.id})
 
-    return result  # En yeni mesajı gönderenler en başta olmak üzere, kullanıcıların ID'leri döner
-
+    return result  # En yeni mesajı gönderenler en başta olmak üzere, kullanıcı bilgileri döner
 
 
 

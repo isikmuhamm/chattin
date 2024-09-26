@@ -102,12 +102,13 @@ async def websocket_endpoint(websocket: WebSocket, username: str):
 
 # Kullanıcının daha önce mesajlaştığı kullanıcıları döndüren endpoint
 @app.get("/users/chat/")
-async def get_chat_users(user_id: int = Depends(auth.get_current_user), db: Session = Depends(database.get_db)):
+async def get_chat_users(user_id: int , db: Session = Depends(database.get_db)): #= Depends(auth.get_current_user)
     return crud.get_chat_users(db=db, user_id=user_id)
 
 
+
 # Geçmiş mesajlaşmaları al
-@app.get("/messages/{target_user_id}")
-def get_messages(target_user_id: int, db: Session = Depends(database.get_db), current_user: models.User = Depends(auth.get_current_user)):
-    messages = crud.get_chat_messages(db=db, current_user_id=current_user.id, target_user_id=target_user_id)
+@app.get("/messages/")
+def get_messages(user_id: int , target_user_id: int, db: Session = Depends(database.get_db)): #= Depends(auth.get_current_user)'
+    messages = crud.get_chat_messages(db=db, current_user_id=user_id, target_user_id=target_user_id)
     return {"messages": messages}
