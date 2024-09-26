@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models, auth
+import models, auth
 from pydantic import BaseModel
 from fastapi import HTTPException, status
 from datetime import datetime

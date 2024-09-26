@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, APIRouter, WebSocket, HTTPException
 from sqlalchemy.orm import Session
-from .npm import crud, models, database, auth
-from .database import SessionLocal
+import crud, models, database, auth
+from database import SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
