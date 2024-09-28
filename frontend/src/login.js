@@ -33,6 +33,15 @@ function Login() {
       localStorage.setItem('userId', userId);
       localStorage.setItem('username', username);
 
+      // WebSocket bağlantısını kur
+      const socket = new WebSocket(`ws://localhost:8000/ws/${username}`);
+      socket.onopen = () => {
+        console.log('WebSocket bağlantısı kuruldu');
+      };
+      socket.onclose = () => {
+        console.log('WebSocket bağlantısı kapandı');
+      };
+
       // Giriş başarılı, chat sayfasına yönlendir
       navigate('/chat');
     } catch (err) {
