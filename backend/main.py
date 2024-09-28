@@ -123,18 +123,20 @@ class ConnectionManager:
 
         print(f"Gelen mesaj: {message_data}, Alıcı: {recipient_id}")
 
-        # recipient_id ile bağlantıyı bul
+        # Alıcı ve göndericinin websocket bağlantılarını al
         recipient_connection = self.active_connections.get(recipient_id)
-        if recipient_connection:
-            websocket = recipient_connection["websocket"]
-            await websocket.send_text(message)
-            print(f"Mesaj gönderildi: {message}")
-        else:
-            print(f"Bağlantı bulunamadı: {recipient_id} (Aktif bağlantılar: {list(self.active_connections.keys())})")
 
         # Mesajı veritabanına kaydet
         await self.save_message_to_db(db, sender_id, recipient_id, content)
 
+        # Eğer alıcı bağlantıda ise mesajı ilet
+        if recipient_connection:
+            recipient_websocket = recipient_connection["websocket"]
+            await recipient_websocket.send_text(message)
+            print(f"Mesaj alıcıya gönderildi: {recipient_id}")
+        else:
+            print(f"Bağlantı bulunamadı: {recipient_id} (Aktif bağlantılar: {list(self.active_connections.keys())})")
+        
 
 connection_manager = ConnectionManager()
 
@@ -176,7 +178,6 @@ async def get_online_users(db: Session = Depends(get_db)):
         if user:
             online_users_info.append({"username": connection["username"], "id": user_id})
     return online_users_info  # Sadece online kullanıcıların listesini döndür
-
 
 
 # Kullanıcının daha önce mesajlaştığı kullanıcıları döndüren endpoint

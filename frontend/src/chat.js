@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaUser, FaSignOutAlt, FaComments, FaPaperPlane, FaGlobeAmericas } from 'react-icons/fa';
+import './style.css';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -80,12 +82,12 @@ function Chat() {
     };
   }, [navigate]);
 
-  const fetchMessagesWithUser = async (userId, username) => {
+  const fetchMessagesWithUser = async (recipient_id, username) => {
     const token = localStorage.getItem('token');
     try {
-      setSelectedUser({ id: userId, username: username });
+      setSelectedUser({ id: recipient_id, username: username });
 
-      const response = await axios.get(`http://localhost:8000/messages/?user_id=${localStorage.getItem('userId')}&target_user_id=${userId}`, {
+      const response = await axios.get(`http://localhost:8000/messages/?user_id=${localStorage.getItem('userId')}&target_user_id=${recipient_id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -115,7 +117,7 @@ function Chat() {
       ...prevMessages,
       {
         id: Date.now(),
-        sender_id: senderId,
+        sender_id: parseInt(senderId, 10),
         recipient_id: selectedUser.id,
         content: newMessage,
       },
@@ -127,12 +129,18 @@ function Chat() {
   const username = localStorage.getItem('username');
 
   return (
-    <div className="chat-container" style={{ paddingLeft: '30px' }}>
-      <header>
-        <h2>Chat</h2>
-        {username && <p>{username}, hoş geldin!</p>}
-        <button onClick={handleLogout}>Oturumu Kapat</button>
+    <div className="chat-container">
+      <header className="chat-header">
+        <h2>Chattin</h2>
+        <div className="user-info">
+          {username && <p>{username}, hoş geldin!</p>}
+          <button onClick={handleLogout} className="logout-button">
+            <FaSignOutAlt className="icon" />
+            Oturumu Kapat
+          </button>
+        </div>
       </header>
+      
       <div className="chat-content">
         <div className="sidebar">
           <div className="users-list">
@@ -147,17 +155,13 @@ function Chat() {
                 <div
                   key={user.id}
                   onClick={() => fetchMessagesWithUser(user.id, user.username)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight: onlineUsers.some((onlineUser) => onlineUser.id === user.id)
-                      ? 'bold'
-                      : 'normal',
-                    color: onlineUsers.some((onlineUser) => onlineUser.id === user.id)
-                      ? 'green'
-                      : 'black',
-                  }}
+                  className={`user-item ${onlineUsers.some((onlineUser) => onlineUser.id === user.id) ? 'online' : ''}`}
                 >
+                  <FaUser className="icon" />
                   {user.username}
+                  {onlineUsers.some((onlineUser) => onlineUser.id === user.id) && (
+                    <FaGlobeAmericas className="online-icon" />
+                  )}
                 </div>
               ))}
 
@@ -173,48 +177,60 @@ function Chat() {
                 <div
                   key={user.id}
                   onClick={() => fetchMessagesWithUser(user.id, user.username)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight: onlineUsers.some((onlineUser) => onlineUser.username === user.username) ? 'bold' : 'normal',
-                    color: onlineUsers.some((onlineUser) => onlineUser.username === user.username) ? 'green' : 'black'
-                  }}
+                  className={`user-item ${onlineUsers.some((onlineUser) => onlineUser.username === user.username) ? 'online' : ''}`}
                 >
+                  <FaUser className="icon" />
                   {user.username}
+                  {onlineUsers.some((onlineUser) => onlineUser.username === user.username) && (
+                    <FaGlobeAmericas className="online-icon" />
+                  )}
                 </div>
               ))}
           </div>
         </div>
+        
         <div className="message-area">
           {selectedUser ? (
             <>
-              <h3>{selectedUser.username}'e Mesaj</h3>
+              <div className="message-header">
+                <h3>{selectedUser.username}'e Mesaj</h3>
+              </div>
               <div className="message-list">
                 {messages.length > 0 ? (
-                  messages.map((message) => {
-                    return (
-                      <div key={message.id}>
+                  messages.map((message, index) => (
+                    <div
+                      key={`${message.id}-${index}`}
+                      className={`message ${message.sender_id === parseInt(localStorage.getItem('userId'), 10) ? 'sent' : 'received'}`}
+                    >
+                      <span className="message-content">
                         <strong>
-                          {message.sender_id === parseInt(localStorage.getItem('userId'), 10) ? 'Ben' : selectedUser.username}:
+                          {message.sender_id === parseInt(localStorage.getItem('userId'),10) ? 'Ben' : selectedUser.username}:
                         </strong> {message.content}
-                      </div>
-                    );
-                  })
+                      </span>
+                    </div>
+                  ))
                 ) : (
-                  <p>Geçmiş mesaj yok</p>
+                  <p className="no-messages">Geçmiş mesaj yok</p>
                 )}
               </div>
-
-              <div className="message-box">
+              <div className="message-input">
                 <input
                   type="text"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Mesajınızı yazın..."
                 />
-                <button onClick={sendMessage}>Gönder</button>
+                <button onClick={sendMessage} className="send-button">
+                  <FaPaperPlane className="icon" />
+                  Gönder
+                </button>
               </div>
             </>
           ) : (
-            <p>Mesaj göndermek için kullanıcı seçin</p>
+            <div className="no-user-selected">
+              <FaComments className="large-icon" />
+              <p>Bir kullanıcı seç ve Chatmeye başla!</p>
+            </div>
           )}
         </div>
       </div>

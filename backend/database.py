@@ -15,7 +15,7 @@ GRANT ALL PRIVILEGES ON DATABASE chattin_db TO chattin; """
 
 
 # Veritabanı motoru
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_size=10, max_overflow=20)
 
 # SessionLocal sınıfı, veritabanı oturumlarını oluşturmak için kullanılır
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

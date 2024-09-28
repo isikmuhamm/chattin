@@ -8,6 +8,10 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const goToRegister = () => {
+    navigate('/register'); // Kayıt sayfasına yönlendir
+};
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -49,32 +53,45 @@ function Login() {
     }
   };
 
+
+
+
   return (
-    <div className="login-container">
-      <h2>Giriş Yap</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Kullanıcı Adı</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className="normal-container">
+      <div className="chat-header">
+      <h1>Chattin'e Giriş Yap</h1>
+      </div>
+    <div className="message-header">
+    {error && <p className="form-error">{error}</p>}
+    <form onSubmit={handleLogin} className="form-container">
+        <div className="form-group">
+            <label>Kullanıcı Adı:</label>
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+            />
         </div>
-        <div>
-          <label>Şifre</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className="form-group">
+            <label>Şifre:</label>
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+            />
         </div>
-        <button type="submit">Giriş Yap</button>
+        <button type="submit" className="send-button">Giriş Yap</button>
       </form>
     </div>
+        <div className="user-info" style={{ justifyContent: 'right', marginRight: '40px'}}>
+            <p>
+                Eğer kayıtlı değilseniz, <span style={{ cursor: 'pointer', color: 'blue' }} onClick={goToRegister}>kayıt olun</span>.
+            </p>
+        </div>
+    </div>
+
   );
 }
 
