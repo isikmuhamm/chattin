@@ -2,8 +2,6 @@
 
 **Chattin Uygulaması**: Gerçek zamanlı mesajlaşma özelliğine sahip, kullanıcıların birbirleriyle iletişim kurmasını sağlayan bir uygulamadır.Javascript (React), CSS, Python (FastAPI) ve PostgreSQL ile geliştirilmiştir.
 
-Önemli not: Bu projede kodlar çırağa (ChatGPT) yazdırılmış, hataları düzeltmeyi ve temel mantığı kurmayı kalfa (@isikmuhamm) üstlenmiştir!
-
 ## Başlangıç
 
 Bu bölüm, projeyi kendi bilgisayarınızda çalıştırabilmeniz için gerekli adımları içerir.
