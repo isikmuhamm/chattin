@@ -8,9 +8,16 @@ Bu bölüm, projeyi kendi bilgisayarınızda çalıştırabilmeniz için gerekli
 
 ### Ekran Görüntüleri
 
+#### Karşılama ekranları
 ![Karşılama ekranları](./screenshots/chattin_chat_onboarding.png)
+
+#### Chat seçme ekranı
 ![Chat seçme ekranı](./screenshots/chattin_chat_sec.png)
+
+#### Mesaj geçmişi yok
 ![Mesaj geçmişi yok](./screenshots/chattin_chat_no_history.png)
+
+#### Online kullanıcıları görüntülenmesi ve chat ekranı
 ![Online kullanıcıları görüntülenmesi](./screenshots/chattin_chat_online.png)
 
 
