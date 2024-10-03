@@ -6,6 +6,14 @@
 
 Bu bölüm, projeyi kendi bilgisayarınızda çalıştırabilmeniz için gerekli adımları içerir.
 
+### Ekran Görüntüleri
+
+![Karşılama ekranları](./screenshots/chattin_chat_onboarding.png)
+![Chat seçme ekranı](./screenshots/chattin_chat_sec.png)
+![Mesaj geçmişi yok](./screenshots/chattin_chat_no_history.png)
+![Online kullanıcıları görüntülenmesi](./screenshots/chattin_chat_online.png)
+
+
 ### Gereksinimler
 
 Projenin çalışması için aşağıdaki yazılımlar ve kütüphaneler gereklidir:
@@ -42,7 +50,6 @@ Bu kütüphaneleri `frontend` dizininde `package.json` dosyası olarak kaydedebi
 - `cors`: Cross-Origin Resource Sharing (CORS) desteği sağlar.
 
 Bu paketler `requirements.txt` dosyasında belirtilmiştir.
-
 
 
 ### Kurulum Adımları
