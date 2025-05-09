@@ -63,13 +63,13 @@ Bu paketler `requirements.txt` dosyasında belirtilmiştir.
 
 1. **Depoyu Klonlayın**:
    ```bash
-   git clone https://github.com/kullanici_adiniz/chat-app.git
+   git clone https://github.com/isikmuhamm/chattin.git
    ```
-   (Kendi GitHub kullanıcı adınızı kullanmayı unutmayın.)
+
 
 2. **Frontend için Gerekli Bağımlılıkları Yükleyin**:
    ```bash
-   cd chat-app/frontend
+   cd chattin/frontend
    npm install
    ```
 
@@ -135,13 +135,13 @@ Oluşturduğunuz tabloları kontrol etmek için şu komutu kullanabilirsiniz:
 
 1. **Backend Sunucusunu Başlatın**:
    ```bash
-   cd chat-app/backend
+   cd chattin/backend
    uvicorn main:app --reload
    ```
 
 2. **Frontend Uygulamasını Başlatın**:
    ```bash
-   cd chat-app/frontend
+   cd chattin/frontend
    npm start
    ```
 
@@ -320,13 +320,13 @@ These packages are listed in the `requirements.txt` file.
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your_username/chat-app.git
+   git clone https://github.com/isikmuhamm/chattin.git
    ```
    (Make sure to use your own GitHub username.)
 
 2. **Install Frontend Dependencies**:
    ```bash
-   cd chat-app/frontend
+   cd chattin/frontend
    npm install
    ```
 
@@ -392,13 +392,13 @@ You can verify the created tables with the following command:
 
 1. **Start the Backend Server**:
    ```bash
-   cd chat-app/backend
+   cd chattin/backend
    uvicorn main:app --reload
    ```
 
 2. **Start the Frontend Application**:
    ```bash
-   cd chat-app/frontend
+   cd chattin/frontend
    npm start
    ```
 
